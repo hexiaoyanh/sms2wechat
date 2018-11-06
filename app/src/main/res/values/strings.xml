@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">sms2wechat</string>
+    <string name="app_name">短信转</string>
+    <string name="notify_msg">验证码%s</string>
 </resources>
