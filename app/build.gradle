@@ -64,5 +64,6 @@ dependencies {
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
+    // GreenDao
+    implementation 'org.greenrobot:greendao:3.2.2'
 }

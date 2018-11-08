@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.telephony.SmsMessage;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.kdfly.sms2wechat.utils.VerificationUtils;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -60,12 +63,24 @@ public class SmsReceiver extends BroadcastReceiver {
         String s1 = "您收到一条短信";
 
         //分析一下是否为验证码短信。
-        String captchas = StringUtils.tryToGetCaptchas(s);
+//        String captchas = StringUtils.tryToGetCaptchas(s);
+//        if(!captchas.equals("")) {
+//            s1 = String.format(c.getResources().getString(R.string.notify_msg), captchas);
+//        }else{
+//            s1 = s;
+//        }
+
+        final String captchas =
+                VerificationUtils.parseVerificationCodeIfExists(c, s);
         if(!captchas.equals("")) {
             s1 = String.format(c.getResources().getString(R.string.notify_msg), captchas);
         }else{
             s1 = s;
         }
+
+//        if (TextUtils.isEmpty(verificationCode)) { // Not verification code msg.
+//            return;
+//        }
 
 //        T.quick(c, s1 + "\n" + s);
 
