@@ -1,4 +1,211 @@
 <resources>
     <string name="app_name">短信转</string>
     <string name="notify_msg">验证码%s</string>
+
+    <!-- General -->
+    <string name="okay">好的</string>
+    <string name="confirm">确定</string>
+
+    <!-- preferences -->
+    <string name="pref_general_title">通用</string>
+    <string name="pref_enable_title">启用</string>
+    <string name="pref_enable_summary_off">需要接收和读取短信权限</string>
+    <string name="pref_enable_summary_on">不再需要时可关闭此开关</string>
+    <string name="pref_show_toast_title">显示Toast</string>
+    <string name="pref_show_toast_summary">接收到验证码时显示Toast</string>
+    <string name="pref_donate_by_alipay_title">支付宝捐赠</string>
+    <string name="pref_donate_by_wechat_title">微信捐赠</string>
+    <string name="pref_about_title">关于</string>
+    <string name="pref_version_title">版本</string>
+    <string name="pref_version_summary">当前版本：%1$s (%2$d)</string>
+    <string name="pref_source_code_title">项目源码</string>
+    <string name="pref_source_code_summary">欢迎Star ♪(＾∀＾)ﾉ</string>
+    <string name="browser_install_or_enable_prompt">请安装或启用浏览器</string>
+    <string name="alipay_install_prompt">请先安装支付宝</string>
+    <string name="alipay_enable_prompt">请先启用支付宝</string>
+    <string name="wechat_install_prompt">请先安装微信</string>
+    <string name="wechat_enable_prompt">请先启用微信</string>
+    <string name="cur_verification_code">当前验证码：%s</string>
+    <string name="pref_mark_as_read_title">标记为已读</string>
+    <string name="pref_mark_as_read_summary">将验证码短信标记为已读</string>
+    <string name="pref_smscode_keywords_title">验证码短信关键字</string>
+    <string name="pref_smscode_keywords_summary">短信包含关键字(正则表达式)</string>
+    <string name="pref_smscode_title">验证码短信</string>
+    <string name="reset">重置</string>
+    <string name="code_keywords_hint">关键字(正则表达式)</string>
+    <string name="pref_smscode_test_title">验证码短信测试</string>
+    <string name="pref_smscode_test_summary">测试短信中的验证码是否能被识别</string>
+    <string name="sms_content_hint">短信内容</string>
+    <string name="test">测试</string>
+    <string name="cancel">取消</string>
+    <string name="cannot_parse_smscode">未能解析出验证码</string>
+    <string name="auto_input_accessibility_service_description">自动输入短信验证码的无障碍服务。\n\n如果不需要自动输入验证码，则建议关闭此无障碍服务。</string>
+    <string name="pref_experimental_title">试验性功能</string>
+    <string name="pref_entry_auto_input_code_title">自动输入验证码</string>
+    <string name="pref_entry_auto_input_code_summary">验证码自动输入设定</string>
+    <string name="pref_enable_auto_input_code_summary">尝试自动输入验证码</string>
+    <string name="open_auto_input_accessibility">打开无障碍服务</string>
+    <string name="open_auto_input_accessibility_prompt">需要打开自动输入的无障碍服务。\n\n注意：在一些国产Rom上，无障碍服务会被系统自动关闭，所以此选项可能无效。</string>
+    <string name="go_to_open">去打开</string>
+    <string name="smscode_auto_input_service_label">短信验证码自动输入服务</string>
+    <string name="pref_enable_auto_input_code_title">启用自动输入</string>
+    <string name="acquire_root_permission">获取Root权限</string>
+    <string name="acquire_root_permission_prompt">需要获取Root权限来自动输入验证码</string>
+    <string name="channel_name_foreground_service">解析短信时的通知</string>
+    <string name="sms_code_notification_title">短信解析中……</string>
+    <string name="action_home_faq_title">常见问题</string>
+    <string name="pref_debug_title">调试</string>
+    <string name="pref_verbose_log_mode_title">输出详细日志</string>
+    <string name="pref_verbose_log_mode_summary_off">输出详细的日志(仅用于调试)</string>
+    <string name="pref_choose_theme_title">主题</string>
+    <string name="pref_clear_clipboard_title">清除剪切板</string>
+    <string name="pref_clear_clipboard_summary">自动输入成功后清除剪切板</string>
+    <string name="pref_others_title">其它</string>
+    <string name="pref_exclude_from_recents_title">不在最近任务列表中显示</string>
+    <string name="pref_delete_sms_title">短信删除</string>
+    <string name="pref_delete_sms_summary">警告：提取成功后将验证码短信删除</string>
+    <string name="pref_copy_to_clipboard_title">复制到剪切板</string>
+    <string name="pref_copy_to_clipboard_summary">提取成功后复制验证码到系统剪切板</string>
+    <!-- preferences -->
+
+    <!-- Auto input mode -->
+    <string name="pref_auto_input_mode_title">自动输入模式</string>
+    <string name="pref_auto_input_mode_summary_default">请选择自动输入模式</string>
+    <string name="pref_auto_input_mode_accessibility">无障碍服务模式</string>
+    <string name="pref_auto_input_mode_root">Root模式</string>
+    <!-- Auto input mode end -->
+
+    <!-- Focus Mode -->
+    <string name="pref_focus_mode_title">对焦模式</string>
+    <string name="focus_mode_entry_auto">自动对焦(自动寻找验证码输入框)</string>
+    <string name="focus_mode_entry_manual">手动对焦(手动指定验证码输入框)</string>
+    <!-- Focus Mode end -->
+
+    <string name="pref_manual_focus_if_failed_title">自动对焦转手动对焦</string>
+    <string name="pref_manual_focus_if_failed_summary">优先自动对焦，自动对焦失败后转手动对焦</string>
+    <string name="auto_focus_failed_prompt">自动对焦失败，请在%d秒内手动对焦</string>
+
+    <!-- Listen Mode -->
+    <string name="pref_listen_mode_title">短信监听模式</string>
+    <string name="listen_mode_entry_standard">标准模式(广播监听)</string>
+    <string name="listen_mode_entry_compatible">兼容模式(广播监听+数据库监听)</string>
+    <string name="compatible_mode_prompt_title">兼容模式</string>
+    <string name="compatible_mode_prompt_content">兼容模式需要常驻后台，如果需要开机自启动则请授予权限。\n\n如果标准模式能正常运行，则不推荐兼容模式。</string>
+    <!-- Listen Mode end -->
+
+    <!-- permission requirement -->
+    <string name="permission_statement">权限声明</string>
+    <string name="permission_requirement">权限获取</string>
+    <string name="receive_sms_permission_requirement">需要获得读取短信权限</string>
+    <string name="prompt_sms_permission_denied">读取短信权限获取失败，本应用将无法正常工作。</string>
+    <string name="service_sms_permission_requirement">MIUI中需要获得通知类短信权限</string>
+    <string name="prompt_service_sms_permission_denied">通知类短信权限获取失败，本应用将无法正常工作。</string>
+    <!-- permission requirement end -->
+
+    <!-- theme color -->
+    <string name="red">姨妈红</string>
+    <string name="pink">哔哩粉</string>
+    <string name="yellow">咸蛋黄</string>
+    <string name="green">原谅绿</string>
+    <string name="blue">胖次蓝</string>
+    <string name="violet">基佬紫</string>
+    <string name="black">Dark♂黑</string>
+    <!-- theme color end -->
+
+    <string name="simplified_question">问：</string>
+    <string name="simplified_answer">答：</string>
+
+    <!-- app ops write sms -->
+    <string name="write_sms_appops_prompt_content">
+        自Android 4.4起，非默认短信应用修改短信的权限得到限制。除了授予写短信的权限外，还需要修改AppOps的设置给予 WRITE_SMS 权限。\n\n有两种设置方式：\n
+        1. 通过 ROOT 方式授予，具体点击下方的\"ROOT授予\"即可。\n\n
+        2. 通过 ADB 命令方式修改，具体点击下方的\"查看ADB设置帮助\"，设置完毕后需重新打开该开关选项。\n\n
+        如果应用此开关后并不生效，则此选项并不适用于您当前的ROM。
+    </string>
+    <string name="extra_permission_request_prompt_title">额外权限请求声明</string>
+    <string name="view_adb_setting_help">查看ADB设置帮助</string>
+    <string name="granted_by_root">Root授予</string>
+    <string name="granted_appops_by_root_failed">Root授予 AppOps WRITE_SMS 权限失败</string>
+    <string name="granted_appops_by_root_succeed">Root授予 AppOps WRITE_SMS 权限成功</string>
+    <string name="relevant_permission_already_granted">已授予相关权限</string>
+    <!-- app ops write sms end -->
+
+    <!-- sms code rule -->
+    <string name="rule_company_hint">公司或组织名</string>
+    <string name="rule_keyword_hint">验证码关键字</string>
+    <string name="rule_code_length">验证码长度</string>
+    <string name="rule_code_regex_hint">验证码正则表达式</string>
+    <string name="pref_code_rules_title">验证码规则</string>
+    <string name="pref_code_rules_summary">自定义特定的验证码匹配规则</string>
+    <string name="quick_choose">快速选择</string>
+    <string name="sms_code_type_digit_entry">数字 [0\-9]</string>
+    <string name="sms_code_type_letter_entry">字母 [a\-zA\-Z]</string>
+    <string name="sms_code_type_text_entry">数字+字母 [a\-zA\-Z0\-9]</string>
+    <string name="action_rule_edit_done">保存</string>
+    <string name="action_import_rules">导入</string>
+    <string name="action_export_rules">导出</string>
+    <string name="revoke">撤回</string>
+    <string name="removed">已删除</string>
+    <string name="remove">删除</string>
+    <string name="edit">编辑</string>
+    <string name="actions">操作</string>
+    <string name="rule_list_empty_prompt">空空如也~</string>
+    <string name="rule_list_empty_snack_prompt">规则列表为空，无须导出</string>
+    <string name="code_length_empty_prompt">请输入验证码长度</string>
+    <string name="rule_company_empty_hint">请输入公司或组织名</string>
+    <string name="rule_keyword_empty_hint">请输入验证码关键字</string>
+    <string name="rule_code_regex_empty_hint">请输入验证码正则表达式</string>
+    <string name="rule_duplicated_prompt">此规则已存在,请重新编辑或退出编辑</string>
+    <string name="rule_list">规则列表</string>
+    <string name="create_rule">新建规则</string>
+    <string name="edit_rule">编辑规则</string>
+    <string name="import_succeed">导入成功</string>
+    <string name="import_failed_version_missed">导入失败，缺失版本号</string>
+    <string name="import_failed_version_unknown">导入失败，未知版本号</string>
+    <string name="import_failed_backup_invalid">导入失败，备份文件格式错误</string>
+    <string name="import_failed_read_error">导入失败，读取文件错误</string>
+    <string name="export_succeed">导出成功</string>
+    <string name="export_failed">导出失败，请重试</string>
+    <string name="import_confirmation_title">导入确认</string>
+    <string name="import_confirmation_message">导入时是否需要保留当前规则？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="importing">正在导入</string>
+    <string name="no_backup_exists">没有备份文件</string>
+    <string name="choose_backup_file">选择备份文件</string>
+    <string name="backup_file_dir">备份位置:\n%s</string>
+    <string name="backup_file_name">备份文件名</string>
+    <string name="exporting">正在导出</string>
+    <string name="external_storage_perm_denied_prompt">已拒绝SD卡权限</string>
+    <string name="action_save_as_template">保存为模版</string>
+    <string name="save_template_succeed">保存模版成功</string>
+    <string name="save_template_failed">保存模版失败</string>
+    <string name="action_rule_help">帮助</string>
+    <string name="share">分享</string>
+    <string name="import_rules">导入规则</string>
+    <!-- sms code rule end -->
+
+    <string-array name="question_list">
+        <item>本产品理念是什么？</item>
+        <item>自动输入的原理是什么？无障碍模式和ROOT模式的区别在哪里？</item>
+        <item>短信监听的标准模式和兼容模式有什么区别？如何选取？</item>
+        <item>这个App开服务了吗？占用后台资源吗？</item>
+        <item>App无效该怎么办？</item>
+        <item>为什么自动输入在大部分App上能成功，在部分App上却失败？</item>
+        <item>对焦模式中的自动寻找和手动指定有什么区别，各有什么优劣？</item>
+        <item>短信标记为已读或者删除短信，为什么不生效？</item>
+    </string-array>
+
+    <string-array name="answer_list">
+        <item>便捷生活，不做毒瘤，绿色Android，不忘初心。</item>
+        <item>收到验证码后，通过无障碍服务查找当前界面的验证码输入框，然后将验证码自动输入。\n\n无障碍模式下需要手动开启自动输入的无障碍服务(系统后台就会一直跑着这个服务)。\n\nROOT模式则是通过ROOT的方式动态地启用/关闭无障碍服务，即在解析到验证码时打开，在自动输入完毕时关闭。\n\n个人推荐采用ROOT方式。</item>
+        <item>标准模式：仅通过广播监听的方式来监听短信。\n\n兼容模式：既通过广播监听，又通过短信数据库监听的方式来监听短信。兼容模式需要常驻后台，如果需要开机自启动则请授予权限。\n\n如果标准模式能正常运行，则不推荐兼容模式。</item>
+        <item>有三个服务。\n\n一个用来解析短信中的验证码，在接收到验证码短信时开启，在解析完毕之后关闭，不占用什么资源。\n\n一个用来自动输入(即前面的无障碍服务)。\n\n一个用来监听短信数据库变化，在兼容模式下用到，需要后台常驻。</item>
+        <item>1. 在验证码短信测试中先测试短信内容能否被正确解析。\n\n2. 因为用到了服务和广播，所以检查是否在应用控制类软件（黑域、应用管理、绿色守护等）的黑名单中。\n\n3. 检查App的组件（广播接收器、服务、内容提供者等）是否被组件控制类软件（Blocker、写轮眼等）禁用。\n\n4. 检查是否在电池优化名单中，如果在请移到白名单（原理已说明，其实不耗电）。\n\n5. 检查是否已打开验证码保护开关（华为，OPPO等国内Rom存在此机制），或者是否已授予"通知类短信"权限（如MIUI）。\n\n6. 联系开发者，反馈问题。</item>
+        <item>属于正常现象，因为有些应用的验证码输入框是自定义的控件，可能没有遵循Android设计规范，故而不能被正确识别。</item>
+        <item>自动寻找模式：App程序自动寻找识别到验证码输入框之后，再自动粘贴进去。\n优势：全自动化。\n劣势：在极少数界面中因识别不了验证码输入框而失效。\n\n手动对焦模式：用户手动指定验证码输入框，即光标在哪里就在那里自动输入。\n优势：准确率高。\n劣势：非全自动化，需要多点一下屏幕。</item>
+        <item>如果您设备上默认的短信 App 使用的是它自己的短信数据库，而不是系统的短信数据库，那么标记为已读或者删除验证码短信都可能不会生效。如果发生这样的事情，就说明在您的设备上可能不会生效。</item>
+    </string-array>
+    <!-- Q&A end -->
+
 </resources>
