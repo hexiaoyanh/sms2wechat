@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Custom">
+        <attr name="faq_textColor" format="color|reference"/>
+        <attr name="faq_textColorSecondary" format="color|reference"/>
+        <attr name="preferenceIconColor" format="color|reference"/>
+    </declare-styleable>
+</resources>
