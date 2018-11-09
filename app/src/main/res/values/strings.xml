@@ -9,6 +9,8 @@
     <!-- preferences -->
     <string name="pref_general_title">通用</string>
     <string name="pref_enable_title">启用</string>
+    <string name="pref_serverj_code_title">Server酱的key</string>
+    <string name="pref_serverj_code_summary">未配置</string>
     <string name="pref_enable_summary_off">需要接收和读取短信权限</string>
     <string name="pref_enable_summary_on">不再需要时可关闭此开关</string>
     <string name="pref_show_toast_title">显示Toast</string>
@@ -19,7 +21,7 @@
     <string name="pref_version_title">版本</string>
     <string name="pref_version_summary">当前版本：%1$s (%2$d)</string>
     <string name="pref_source_code_title">项目源码</string>
-    <string name="pref_source_code_summary">欢迎Star ♪(＾∀＾)ﾉ</string>
+    <string name="pref_source_code_summary">https://github.com/sheepkx/sms2wechat</string>
     <string name="browser_install_or_enable_prompt">请安装或启用浏览器</string>
     <string name="alipay_install_prompt">请先安装支付宝</string>
     <string name="alipay_enable_prompt">请先启用支付宝</string>

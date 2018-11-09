@@ -7,6 +7,7 @@
     <!-- shared preference key -->
     <string name="pref_general">pref_general</string>
     <string name="pref_enable">pref_enable</string>
+    <string name="pref_serverj_key">pref_serverj_key</string>
     <string name="pref_listen_mode">pref_listen_mode</string>
     <string name="pref_show_toast">pref_show_toast</string>
     <string name="pref_copy_to_clipboard">pref_copy_to_clipboard</string>

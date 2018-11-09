@@ -12,6 +12,8 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.kdfly.sms2wechat.utils.PreferenceUtils;
+import com.kdfly.sms2wechat.utils.SPUtils;
 import com.kdfly.sms2wechat.utils.SmsMessageUtils;
 import com.kdfly.sms2wechat.utils.VerificationUtils;
 
@@ -25,6 +27,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static com.kdfly.sms2wechat.utils.PrefConst.KEY_SERVERJ;
 
 public class SmsReceiver extends BroadcastReceiver {
     @Override
@@ -59,7 +63,12 @@ public class SmsReceiver extends BroadcastReceiver {
               if (messages.length != 0) {
                      String body = SmsMessageUtils.getMessageBody(messages);
 //                     Log.i("123123", body);
+                  if (!SPUtils.isEnable(context)) {
+//                      XLog.i("SmsCode disabled, exiting");
+                      return;
+                  }
                   sendSms2ServerJ(context, body);
+
                  }
         }
     }
@@ -91,8 +100,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
 //        T.quick(c, s1 + "\n" + s);
 
-        SharedPreferences read = c.getSharedPreferences("serverJ", Context.MODE_PRIVATE);
-        String key = read.getString("key", "");
+        String key = PreferenceUtils.getString(c, KEY_SERVERJ, "");
         if (key==""){
             T.quick(c, "请先设置Server酱的key后再试。");
             return;

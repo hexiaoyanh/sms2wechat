@@ -7,6 +7,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import com.kdfly.sms2wechat.constant.Const;
 import com.kdfly.sms2wechat.preference.ResetEditPreference;
 import com.kdfly.sms2wechat.preference.ResetEditPreferenceDialogFragCompat;
 import com.kdfly.sms2wechat.utils.PrefConst;
+import com.kdfly.sms2wechat.utils.PreferenceUtils;
 import com.kdfly.sms2wechat.utils.ResUtils;
 import com.kdfly.sms2wechat.utils.SPUtils;
 import com.kdfly.sms2wechat.utils.Utils;
@@ -58,6 +60,7 @@ import static com.kdfly.sms2wechat.utils.PrefConst.KEY_EXCLUDE_FROM_RECENTS;
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_SMSCODE_TEST;
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_SOURCE_CODE;
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_VERSION;
+import static com.kdfly.sms2wechat.utils.PrefConst.KEY_SERVERJ;
 
 /**
  * 首选项Fragment
@@ -99,15 +102,23 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         mEnablePref.setOnPreferenceChangeListener(this);
 
         findPreference(KEY_SOURCE_CODE).setOnPreferenceClickListener(this);
+        findPreference(KEY_SERVERJ).setOnPreferenceClickListener(this);
 //        findPreference(KEY_DONATE_BY_ALIPAY).setOnPreferenceClickListener(this);
-        findPreference(KEY_SMSCODE_TEST).setOnPreferenceClickListener(this);
-        Preference chooseThemePref = findPreference(KEY_CHOOSE_THEME);
-        chooseThemePref.setOnPreferenceClickListener(this);
-        initChooseThemePreference(chooseThemePref);
+//        findPreference(KEY_SMSCODE_TEST).setOnPreferenceClickListener(this);
+//        Preference chooseThemePref = findPreference(KEY_CHOOSE_THEME);
+//        chooseThemePref.setOnPreferenceClickListener(this);
+//        initChooseThemePreference(chooseThemePref);
 
         // version info preference
         Preference versionPref = findPreference(KEY_VERSION);
         showVersionInfo(versionPref);
+
+        // version info preference
+        Preference serverJPref = findPreference(KEY_SERVERJ);
+//        System.out.println("空的" + PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
+        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))){
+            serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
+        }
 
         // exclude from recents preference
         mExcludeFromRecentsPref = (SwitchPreference) findPreference(KEY_EXCLUDE_FROM_RECENTS);
@@ -170,6 +181,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             case KEY_DONATE_BY_ALIPAY:
                 donateByAlipay();
                 break;
+            case KEY_SERVERJ:
+                showServerJKeyDialog();
+                break;
             default:
                 return false;
         }
@@ -227,6 +241,31 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                     }
                 })
                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+                .negativeText(R.string.cancel)
+                .show();
+    }
+
+    private void showServerJKeyDialog(){
+        new MaterialDialog.Builder(mActivity)
+                .title(R.string.pref_serverj_code_title)
+                .input(R.string.pref_serverj_code_title, 0, true, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        PreferenceUtils.putString(getContext(), KEY_SERVERJ, input.toString());
+
+                        Preference serverJPref = findPreference(KEY_SERVERJ);
+                        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))){
+                            serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
+                        }
+                    }
+                })
+//                .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                    }
+//                })
+                .inputType(InputType.TYPE_CLASS_TEXT)
                 .negativeText(R.string.cancel)
                 .show();
     }
