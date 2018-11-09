@@ -12,6 +12,7 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.kdfly.sms2wechat.utils.SmsMessageUtils;
 import com.kdfly.sms2wechat.utils.VerificationUtils;
 
 import java.io.IOException;
@@ -40,20 +41,26 @@ public class SmsReceiver extends BroadcastReceiver {
 //                messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                 messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i], intent.getStringExtra("format"));
             }
-            for (SmsMessage smsMessage : messages) {
+//            for (SmsMessage smsMessage : messages) {
+//
+//                //短信的内容
+//                String msg = smsMessage.getMessageBody();
+//                //短信的接收时间
+//                long when = smsMessage.getTimestampMillis();
+//                //短信发送方号码
+//                String from = smsMessage.getOriginatingAddress();
+//                Date date = new Date(when);
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                String ss = simpleDateFormat.format(date);
+////                Log.i("123123", msg + "," + ss + "," + from);
+////                sendSms2ServerJ(context, msg);
+//            }
 
-                //短信的内容
-                String msg = smsMessage.getMessageBody();
-                //短信的接收时间
-                long when = smsMessage.getTimestampMillis();
-                //短信发送方号码
-                String from = smsMessage.getOriginatingAddress();
-                Date date = new Date(when);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String ss = simpleDateFormat.format(date);
-//                Log.i("123123", msg + "," + ss + "," + from);
-                sendSms2ServerJ(context, msg);
-            }
+              if (messages.length != 0) {
+                     String body = SmsMessageUtils.getMessageBody(messages);
+//                     Log.i("123123", body);
+                  sendSms2ServerJ(context, body);
+                 }
         }
     }
 
