@@ -18,12 +18,12 @@ public class FaqItemContainer {
     }
 
     private void loadItems(Context context) {
-        Resources res = context.getResources();
-        String[] questionArr = res.getStringArray(R.array.question_list);
-        String[] answerArr = res.getStringArray(R.array.answer_list);
-        for (int i = 0; i < questionArr.length; i++) {
-            mFaqItems.add(new FaqItem(questionArr[i], answerArr[i]));
-        }
+//        Resources res = context.getResources();
+//        String[] questionArr = res.getStringArray(R.array.question_list);
+//        String[] answerArr = res.getStringArray(R.array.answer_list);
+//        for (int i = 0; i < questionArr.length; i++) {
+//            mFaqItems.add(new FaqItem(questionArr[i], answerArr[i]));
+//        }
     }
 
     public List<FaqItem> getFaqItems() {

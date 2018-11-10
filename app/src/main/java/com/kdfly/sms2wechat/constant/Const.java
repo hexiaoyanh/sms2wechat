@@ -18,4 +18,5 @@ public interface Const {
     String PROJECT_DOC_BASE_URL = "https://www.kdfly.com";
     String DOC_APPOPS_ADB_HELP = "appops_adb_help";
     String DOC_SMS_CODE_RULE_HELP ="sms_code_rule_help";
+    String SMS2CHAT_PERMISSION_URL = "https://sheepkx.github.io/app_html/sms2wechat.html";
 }

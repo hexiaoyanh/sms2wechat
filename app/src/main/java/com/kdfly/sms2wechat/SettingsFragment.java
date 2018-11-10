@@ -382,22 +382,24 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     // 展示权限声明
     private void showPermissionStatement() {
-        View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_perm_state, null);
-        WebView permStateWebView = dialogView.findViewById(R.id.perm_state_webview);
-        String data = ResUtils.loadRawRes(mActivity, R.raw.perm_state);
-        permStateWebView.loadDataWithBaseURL("file:///android_asset/",
-                data, "text/html", "utf-8", null);
-        new MaterialDialog.Builder(mActivity)
-                .title(R.string.permission_statement)
-                .customView(permStateWebView, false)
-                .positiveText(R.string.okay)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        tryToAcquireNecessaryPermissions();
-                    }
-                })
-                .show();
+//        View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_perm_state, null);
+//        WebView permStateWebView = dialogView.findViewById(R.id.perm_state_webview);
+//        String data = ResUtils.loadRawRes(mActivity, R.raw.perm_state);
+//        permStateWebView.loadDataWithBaseURL("file:///android_asset/",
+//                data, "text/html", "utf-8", null);
+//        new MaterialDialog.Builder(mActivity)
+//                .title(R.string.permission_statement)
+//                .customView(permStateWebView, false)
+//                .positiveText(R.string.okay)
+//                .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                        tryToAcquireNecessaryPermissions();
+//                    }
+//                })
+//                .show();
+        Utils.showWebPage(getActivity(), Const.SMS2CHAT_PERMISSION_URL);
+
     }
 
     // 必要情况下，申请其他更多权限（MIUI的"通知类短信"权限）

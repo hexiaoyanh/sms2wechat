@@ -22,9 +22,12 @@ import com.kdfly.sms2wechat.app.faq.FaqFragment;
 import com.kdfly.sms2wechat.app.theme.ThemeItem;
 import com.kdfly.sms2wechat.app.theme.ThemeItemAdapter;
 import com.kdfly.sms2wechat.app.theme.ThemeItemContainer;
+import com.kdfly.sms2wechat.constant.Const;
 import com.kdfly.sms2wechat.utils.PrefConst;
 import com.kdfly.sms2wechat.utils.ResUtils;
 import com.kdfly.sms2wechat.utils.SPUtils;
+import com.kdfly.sms2wechat.utils.Utils;
+import com.tencent.stat.StatService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +54,7 @@ public class HomeActivity extends BaseActivity implements
 
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        StatService.registerActivityLifecycleCallbacks(this.getApplication());
 
         // init main fragment
         int index = SPUtils.getCurrentThemeIndex(this);
@@ -174,9 +178,9 @@ public class HomeActivity extends BaseActivity implements
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_home_faq:
-                onFAQSelected();
-                return true;
+//            case R.id.action_home_faq:
+//                onFAQSelected();
+//                return true;
             case R.id.action_perm_state:
                 onPermStateSelected();
                 return true;
@@ -187,12 +191,12 @@ public class HomeActivity extends BaseActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
-        MenuItem faqItem = menu.findItem(R.id.action_home_faq);
-        if (mCurrentFragment instanceof FaqFragment) {
-            faqItem.setVisible(false);
-        } else {
-            faqItem.setVisible(true);
-        }
+//        MenuItem faqItem = menu.findItem(R.id.action_home_faq);
+//        if (mCurrentFragment instanceof FaqFragment) {
+//            faqItem.setVisible(false);
+//        } else {
+//            faqItem.setVisible(true);
+//        }
         return true;
     }
 
@@ -209,16 +213,17 @@ public class HomeActivity extends BaseActivity implements
     }
 
     private void onPermStateSelected() {
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_perm_state, null);
-        WebView permStateWebView = dialogView.findViewById(R.id.perm_state_webview);
-        String data = ResUtils.loadRawRes(this, R.raw.perm_state);
-        permStateWebView.loadDataWithBaseURL("file:///android_asset/",
-                data, "text/html", "utf-8", null);
-        new MaterialDialog.Builder(this)
-                .title(R.string.permission_statement)
-                .customView(permStateWebView, false)
-                .positiveText(R.string.confirm)
-                .show();
+//        View dialogView = getLayoutInflater().inflate(R.layout.dialog_perm_state, null);
+//        WebView permStateWebView = dialogView.findViewById(R.id.perm_state_webview);
+//        String data = ResUtils.loadRawRes(this, R.raw.perm_state);
+//        permStateWebView.loadDataWithBaseURL("file:///android_asset/",
+//                data, "text/html", "utf-8", null);
+//        new MaterialDialog.Builder(this)
+//                .title(R.string.permission_statement)
+//                .customView(permStateWebView, false)
+//                .positiveText(R.string.confirm)
+//                .show();
+        Utils.showWebPage(HomeActivity.this, Const.SMS2CHAT_PERMISSION_URL);
     }
 }
 
