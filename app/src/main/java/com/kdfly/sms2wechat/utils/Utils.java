@@ -3,7 +3,7 @@ package com.kdfly.sms2wechat.utils;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsIntent;
 import android.widget.Toast;
 
 import com.kdfly.sms2wechat.R;

@@ -22,6 +22,23 @@
             android:positiveButtonText="@string/okay"
             android:persistent="false"/>
 
+        <SwitchPreference
+            android:icon="@drawable/ic_lock_open"
+            android:key="@string/pref_dd_enable"
+            android:title="@string/pref_dd_enable_title"
+            android:summaryOn="@string/pref_enable_summary_on"
+            android:summaryOff="@string/pref_enable_summary_off"
+            android:defaultValue="false"/>
+
+        <Preference
+            android:icon="@drawable/ic_key_words"
+            android:key="@string/pref_dd_key"
+            android:title="@string/pref_dd_code_title"
+            android:summary="@string/pref_serverj_code_summary"
+            android:hint="@string/sms_content_hint"
+            android:positiveButtonText="@string/okay"
+            android:persistent="false"/>
+
         <!--<ListPreference-->
             <!--android:icon="@drawable/ic_detect"-->
             <!--android:key="@string/pref_listen_mode"-->

@@ -86,6 +86,15 @@ public class SPUtils {
     }
 
     /**
+     * 钉钉机器人的开关是否打开
+     */
+    public static boolean isDDEnable(Context context) {
+        return PreferenceUtils.getBoolean(context,
+                PrefConst.KEY_DD_ENABLE, PrefConst.ENABLE_DEFAULT);
+    }
+
+
+    /**
      * 获取短信监听模式
      */
     public static String getListenMode(Context context) {

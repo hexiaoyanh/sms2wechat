@@ -1,8 +1,8 @@
 package com.kdfly.sms2wechat.app.theme;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 
 import com.kdfly.sms2wechat.R;
 import com.kdfly.sms2wechat.utils.PrefConst;

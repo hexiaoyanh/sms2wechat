@@ -2,17 +2,15 @@ package com.kdfly.sms2wechat;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.ActionBar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -24,7 +22,6 @@ import com.kdfly.sms2wechat.app.theme.ThemeItemAdapter;
 import com.kdfly.sms2wechat.app.theme.ThemeItemContainer;
 import com.kdfly.sms2wechat.constant.Const;
 import com.kdfly.sms2wechat.utils.PrefConst;
-import com.kdfly.sms2wechat.utils.ResUtils;
 import com.kdfly.sms2wechat.utils.SPUtils;
 import com.kdfly.sms2wechat.utils.Utils;
 import com.tencent.stat.StatService;

@@ -6,27 +6,22 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v14.preference.SwitchPreference;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.SwitchPreference;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceGroup;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.view.View;
-import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -35,13 +30,10 @@ import com.kdfly.sms2wechat.app.theme.ThemeItem;
 import com.kdfly.sms2wechat.constant.Const;
 import com.kdfly.sms2wechat.preference.ResetEditPreference;
 import com.kdfly.sms2wechat.preference.ResetEditPreferenceDialogFragCompat;
-import com.kdfly.sms2wechat.utils.PrefConst;
 import com.kdfly.sms2wechat.utils.PreferenceUtils;
-import com.kdfly.sms2wechat.utils.ResUtils;
 import com.kdfly.sms2wechat.utils.SPUtils;
 import com.kdfly.sms2wechat.utils.Utils;
 import com.kdfly.sms2wechat.utils.VerificationUtils;
-import com.kdfly.sms2wechat.utils.XLog;
 import com.kdfly.sms2wechat.utils.rom.MiuiUtils;
 import com.kdfly.sms2wechat.utils.rom.RomUtils;
 import com.yanzhenjie.permission.Action;
@@ -51,9 +43,8 @@ import com.yanzhenjie.permission.RequestExecutor;
 
 import java.util.List;
 
-import ch.qos.logback.classic.Level;
-
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_CHOOSE_THEME;
+import static com.kdfly.sms2wechat.utils.PrefConst.KEY_DD;
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_DONATE_BY_ALIPAY;
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_ENABLE;
 import static com.kdfly.sms2wechat.utils.PrefConst.KEY_EXCLUDE_FROM_RECENTS;
@@ -103,6 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
         findPreference(KEY_SOURCE_CODE).setOnPreferenceClickListener(this);
         findPreference(KEY_SERVERJ).setOnPreferenceClickListener(this);
+        findPreference(KEY_DD).setOnPreferenceClickListener(this);
 //        findPreference(KEY_DONATE_BY_ALIPAY).setOnPreferenceClickListener(this);
 //        findPreference(KEY_SMSCODE_TEST).setOnPreferenceClickListener(this);
 //        Preference chooseThemePref = findPreference(KEY_CHOOSE_THEME);
@@ -118,6 +110,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 //        System.out.println("空的" + PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
         if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))){
             serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
+        }
+
+        Preference dDPref = findPreference(KEY_DD);
+//        System.out.println("空的" + PreferenceUtils.getString(getContext(), KEY_DD, ""));
+        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_DD, ""))){
+            dDPref.setSummary(PreferenceUtils.getString(getContext(), KEY_DD, ""));
         }
 
         // exclude from recents preference
@@ -183,6 +181,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 break;
             case KEY_SERVERJ:
                 showServerJKeyDialog();
+                break;
+            case KEY_DD:
+                showDDKeyDialog();
                 break;
             default:
                 return false;
@@ -256,6 +257,31 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                         Preference serverJPref = findPreference(KEY_SERVERJ);
                         if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))){
                             serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
+                        }
+                    }
+                })
+//                .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                    }
+//                })
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .negativeText(R.string.cancel)
+                .show();
+    }
+
+    private void showDDKeyDialog(){
+        new MaterialDialog.Builder(mActivity)
+                .title(R.string.pref_dd_code_title)
+                .input(R.string.pref_dd_code_title, 0, true, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        PreferenceUtils.putString(getContext(), KEY_DD, input.toString());
+
+                        Preference serverJPref = findPreference(KEY_DD);
+                        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_DD, ""))){
+                            serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_DD, ""));
                         }
                     }
                 })

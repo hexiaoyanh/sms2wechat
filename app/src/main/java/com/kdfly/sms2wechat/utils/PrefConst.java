@@ -10,6 +10,7 @@ public interface PrefConst {
     String KEY_GENERAL = "pref_general";
 
     String KEY_ENABLE = "pref_enable";
+    String KEY_DD_ENABLE = "pref_dd_enable";
     boolean ENABLE_DEFAULT = false;
 
     String KEY_LISTEN_MODE = "pref_listen_mode";
@@ -44,6 +45,7 @@ public interface PrefConst {
     String KEY_ABOUT = "pref_about";
     String KEY_VERSION = "pref_version";
     String KEY_SERVERJ = "pref_serverj_key";
+    String KEY_DD = "pref_dd_key";
     String KEY_SOURCE_CODE = "pref_source_code";
     String KEY_DONATE_BY_ALIPAY = "pref_donate_by_alipay";
     String KEY_DONATE_BY_WECHAT = "pref_donate_by_wechat";

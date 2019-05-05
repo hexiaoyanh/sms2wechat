@@ -2,8 +2,8 @@ package com.kdfly.sms2wechat.preference;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import androidx.annotation.NonNull;
+import androidx.preference.PreferenceDialogFragmentCompat;
 import android.view.View;
 import android.widget.EditText;
 

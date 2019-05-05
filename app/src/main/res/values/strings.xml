@@ -8,8 +8,10 @@
 
     <!-- preferences -->
     <string name="pref_general_title">通用</string>
-    <string name="pref_enable_title">启用</string>
+    <string name="pref_enable_title">启用Server酱</string>
     <string name="pref_serverj_code_title">Server酱的key</string>
+    <string name="pref_dd_enable_title">启用钉钉机器人</string>
+    <string name="pref_dd_code_title">钉钉机器人的key</string>
     <string name="pref_serverj_code_summary">未配置</string>
     <string name="pref_enable_summary_off">需要接收和读取短信权限</string>
     <string name="pref_enable_summary_on">不再需要时可关闭此开关</string>
