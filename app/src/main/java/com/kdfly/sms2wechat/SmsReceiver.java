@@ -174,13 +174,18 @@ public class SmsReceiver extends BroadcastReceiver {
 
         String key = PreferenceUtils.getString(c, KEY_DD, "");
         if (key==""){
-            T.quick(c, "请先设置Server酱的key后再试。");
+            T.quick(c, "请先设置钉钉机器人的key后再试。");
             return;
         }
         JSONObject json = new JSONObject();
         JSONObject text_json = new JSONObject();
         try {
-            text_json.put("content",s1 + "\n" + s);
+            if(s1.equals(s)){
+                text_json.put("content",s1);
+            }else{
+                text_json.put("content",s1 + "\n" + s);
+            }
+
             json.put("msgtype","text");
             json.put("text",text_json);
         } catch (JSONException e) {
