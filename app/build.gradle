@@ -10,8 +10,8 @@ android {
         applicationId "com.kdfly.sms2wechat"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.02"
+        versionCode 4
+        versionName "1.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 //AVH371VFWS7L 属于应用"短信转"独有的 Android AppKey, 用于配置SDK
