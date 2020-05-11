@@ -20,22 +20,22 @@ android {
                 MTA_CHANNEL:"coolapk"
         ]
     }
-    signingConfigs {
-        release {
-            keyAlias 'sheepkx'
-            keyPassword '5725218'
-            storePassword '5725218'
-            storeFile file('D:/github/sheepkx.keystore')
-        }
-    }
+//    signingConfigs {
+//        release {
+//            keyAlias 'sheepkx'
+//            keyPassword '5725218'
+//            storePassword '5725218'
+//            storeFile file('D:/github/sheepkx.keystore')
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
         }
     }
     sourceSets {

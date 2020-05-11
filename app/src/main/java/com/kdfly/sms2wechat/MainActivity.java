@@ -1,7 +1,12 @@
 package com.kdfly.sms2wechat;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Filter;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +18,8 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
 public class MainActivity extends AppCompatActivity {
+    private String TAG = "MainActivity:";
+    private PhoneReceiver phoneReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
                 alert_edit(v);
             }
         });
-
         AndPermission.with(this)
                 .runtime()
-                .permission(Permission.RECEIVE_SMS, Permission.READ_SMS)
+                .permission(Permission.RECEIVE_SMS, Permission.READ_SMS, Permission.READ_PHONE_STATE,
+                        Permission.PROCESS_OUTGOING_CALLS)
                 .onGranted(permissions -> {
                     // Storage permission are allowed.
                     System.out.println("通过短信读取权限。");
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void alert_edit(View view){
+    public void alert_edit(View view) {
         final EditText et = new EditText(this);
 
         SharedPreferences read = getSharedPreferences("serverJ", MODE_PRIVATE);
@@ -59,6 +66,6 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("key", key);
                         editor.commit();
                     }
-                }).setNegativeButton("取消",null).show();
+                }).setNegativeButton("取消", null).show();
     }
 }

@@ -36,10 +36,7 @@ import com.kdfly.sms2wechat.utils.Utils;
 import com.kdfly.sms2wechat.utils.VerificationUtils;
 import com.kdfly.sms2wechat.utils.rom.MiuiUtils;
 import com.kdfly.sms2wechat.utils.rom.RomUtils;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Rationale;
-import com.yanzhenjie.permission.RequestExecutor;
+import com.yanzhenjie.permission.*;
 
 import java.util.List;
 
@@ -108,13 +105,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         // version info preference
         Preference serverJPref = findPreference(KEY_SERVERJ);
 //        System.out.println("空的" + PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
-        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))){
+        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))) {
             serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
         }
 
         Preference dDPref = findPreference(KEY_DD);
 //        System.out.println("空的" + PreferenceUtils.getString(getContext(), KEY_DD, ""));
-        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_DD, ""))){
+        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_DD, ""))) {
             dDPref.setSummary(PreferenceUtils.getString(getContext(), KEY_DD, ""));
         }
 
@@ -246,7 +243,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 .show();
     }
 
-    private void showServerJKeyDialog(){
+    private void showServerJKeyDialog() {
         new MaterialDialog.Builder(mActivity)
                 .title(R.string.pref_serverj_code_title)
                 .input(R.string.pref_serverj_code_title, 0, true, new MaterialDialog.InputCallback() {
@@ -255,7 +252,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                         PreferenceUtils.putString(getContext(), KEY_SERVERJ, input.toString());
 
                         Preference serverJPref = findPreference(KEY_SERVERJ);
-                        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))){
+                        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""))) {
                             serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_SERVERJ, ""));
                         }
                     }
@@ -271,7 +268,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 .show();
     }
 
-    private void showDDKeyDialog(){
+    private void showDDKeyDialog() {
         new MaterialDialog.Builder(mActivity)
                 .title(R.string.pref_dd_code_title)
                 .input(R.string.pref_dd_code_title, 0, true, new MaterialDialog.InputCallback() {
@@ -280,7 +277,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                         PreferenceUtils.putString(getContext(), KEY_DD, input.toString());
 
                         Preference serverJPref = findPreference(KEY_DD);
-                        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_DD, ""))){
+                        if (!TextUtils.isEmpty(PreferenceUtils.getString(getContext(), KEY_DD, ""))) {
                             serverJPref.setSummary(PreferenceUtils.getString(getContext(), KEY_DD, ""));
                         }
                     }
@@ -351,7 +348,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 //            showPermissionStatement();
 //            SPUtils.setFirstRunSinceV1(mActivity, false);
 //        } else {
-            tryToAcquireNecessaryPermissions();
+        tryToAcquireNecessaryPermissions();
 //        }
     }
 
@@ -394,6 +391,24 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                     @Override
                     public void onAction(List<String> data) {
                         requestOtherPermissionsIfNecessary();
+                    }
+                })
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        Toast.makeText(mActivity, R.string.prompt_service_phone_permission_denied, Toast.LENGTH_LONG).show();
+                        mEnablePref.setChecked(false);
+                    }
+                })
+                .start();
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.READ_PHONE_STATE,
+                        Permission.PROCESS_OUTGOING_CALLS)
+                .rationale(rationale)
+                .onGranted(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
                     }
                 })
                 .onDenied(new Action<List<String>>() {
