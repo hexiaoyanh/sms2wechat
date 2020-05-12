@@ -385,30 +385,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         AndPermission.with(this)
                 .runtime()
                 .permission(Manifest.permission.READ_SMS,
-                        Manifest.permission.RECEIVE_SMS)
-                .rationale(rationale)
-                .onGranted(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> data) {
-                        requestOtherPermissionsIfNecessary();
-                    }
-                })
-                .onDenied(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> data) {
-                        Toast.makeText(mActivity, R.string.prompt_service_phone_permission_denied, Toast.LENGTH_LONG).show();
-                        mEnablePref.setChecked(false);
-                    }
-                })
-                .start();
-        AndPermission.with(this)
-                .runtime()
-                .permission(Permission.READ_PHONE_STATE,
+                        Manifest.permission.RECEIVE_SMS,Permission.READ_CONTACTS,Permission.READ_PHONE_STATE,
                         Permission.PROCESS_OUTGOING_CALLS)
                 .rationale(rationale)
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
+                        requestOtherPermissionsIfNecessary();
                     }
                 })
                 .onDenied(new Action<List<String>>() {

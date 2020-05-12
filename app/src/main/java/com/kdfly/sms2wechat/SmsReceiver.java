@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 
+import android.util.Log;
 import androidx.appcompat.app.AlertDialog;
 import android.telephony.SmsMessage;
 
@@ -18,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,38 +50,39 @@ public class SmsReceiver extends BroadcastReceiver {
 //                messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                 messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i], intent.getStringExtra("format"));
             }
-//            for (SmsMessage smsMessage : messages) {
+            for (SmsMessage smsMessage : messages) {
+
+                //短信的内容
+                String msg = smsMessage.getMessageBody();
+                //短信的接收时间
+                long when = smsMessage.getTimestampMillis();
+                //短信发送方号码
+                String from = smsMessage.getOriginatingAddress();
+                Date date = new Date(when);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String ss = simpleDateFormat.format(date);
+                Log.i("123123", msg + "," + ss + "," + from);
+                sendSms2ServerJ(context, msg + "," + ss + "," + from);
+            }
+
+//            if (messages.length != 0) {
+//                SmsMessageUtils smsMessageUtils = new SmsMessageUtils(messages);
+//                String body = SmsMessageUtils.getMessageBody();
+////                     Log.i("123123", body);
+//                if (SPUtils.isEnable(context)) {
+////                      XLog.i("SmsCode disabled, exiting");
+//                    sendSms2ServerJ(context, body);
+//                }
 //
-//                //短信的内容
-//                String msg = smsMessage.getMessageBody();
-//                //短信的接收时间
-//                long when = smsMessage.getTimestampMillis();
-//                //短信发送方号码
-//                String from = smsMessage.getOriginatingAddress();
-//                Date date = new Date(when);
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                String ss = simpleDateFormat.format(date);
-////                Log.i("123123", msg + "," + ss + "," + from);
-////                sendSms2ServerJ(context, msg);
+//                if (SPUtils.isDDEnable(context)) {
+//                    sendSms2DD(context, body);
+//                }
+//
 //            }
-
-              if (messages.length != 0) {
-                     String body = SmsMessageUtils.getMessageBody(messages);
-//                     Log.i("123123", body);
-                  if (SPUtils.isEnable(context)) {
-//                      XLog.i("SmsCode disabled, exiting");
-                      sendSms2ServerJ(context, body);
-                  }
-
-                  if (SPUtils.isDDEnable(context)){
-                      sendSms2DD(context, body);
-                  }
-
-                 }
         }
     }
 
-    private void sendSms2ServerJ(Context c, String s){
+    private void sendSms2ServerJ(Context c, String s) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
 //        RequestBody requestBody = RequestBody.create(null, s);
         String s1 = "您收到一条短信";
@@ -93,9 +97,9 @@ public class SmsReceiver extends BroadcastReceiver {
 
         final String captchas =
                 VerificationUtils.parseVerificationCodeIfExists(c, s);
-        if(!captchas.equals("")) {
+        if (!captchas.equals("")) {
             s1 = String.format(c.getResources().getString(R.string.notify_msg), captchas);
-        }else{
+        } else {
             s1 = s;
         }
 
@@ -106,7 +110,7 @@ public class SmsReceiver extends BroadcastReceiver {
 //        T.quick(c, s1 + "\n" + s);
 
         String key = PreferenceUtils.getString(c, KEY_SERVERJ, "");
-        if (key==""){
+        if (key == "") {
             T.quick(c, "请先设置Server酱的key后再试。");
             return;
         }
@@ -145,7 +149,7 @@ public class SmsReceiver extends BroadcastReceiver {
         });
     }
 
-    private void sendSms2DD(Context c, String s){
+    private void sendSms2DD(Context c, String s) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
 //        RequestBody requestBody = RequestBody.create(null, s);
         String s1 = "您收到一条短信";
@@ -160,9 +164,9 @@ public class SmsReceiver extends BroadcastReceiver {
 
         final String captchas =
                 VerificationUtils.parseVerificationCodeIfExists(c, s);
-        if(!captchas.equals("")) {
+        if (!captchas.equals("")) {
             s1 = String.format(c.getResources().getString(R.string.notify_msg), captchas);
-        }else{
+        } else {
             s1 = s;
         }
 
@@ -173,21 +177,21 @@ public class SmsReceiver extends BroadcastReceiver {
 //        T.quick(c, s1 + "\n" + s);
 
         String key = PreferenceUtils.getString(c, KEY_DD, "");
-        if (key==""){
+        if (key == "") {
             T.quick(c, "请先设置钉钉机器人的key后再试。");
             return;
         }
         JSONObject json = new JSONObject();
         JSONObject text_json = new JSONObject();
         try {
-            if(s1.equals(s)){
-                text_json.put("content",s1);
-            }else{
-                text_json.put("content",s1 + "\n" + s);
+            if (s1.equals(s)) {
+                text_json.put("content", s1);
+            } else {
+                text_json.put("content", s1 + "\n" + s);
             }
 
-            json.put("msgtype","text");
-            json.put("text",text_json);
+            json.put("msgtype", "text");
+            json.put("text", text_json);
         } catch (JSONException e) {
             e.printStackTrace();
         }

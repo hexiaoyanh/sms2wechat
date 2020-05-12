@@ -32,19 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 alert_edit(v);
             }
         });
-        AndPermission.with(this)
-                .runtime()
-                .permission(Permission.RECEIVE_SMS, Permission.READ_SMS, Permission.READ_PHONE_STATE,
-                        Permission.PROCESS_OUTGOING_CALLS)
-                .onGranted(permissions -> {
-                    // Storage permission are allowed.
-                    System.out.println("通过短信读取权限。");
-                })
-                .onDenied(permissions -> {
-                    // Storage permission are not allowed.
-                    System.out.println("拒绝短信读取权限。");
-                })
-                .start();
 
     }
 

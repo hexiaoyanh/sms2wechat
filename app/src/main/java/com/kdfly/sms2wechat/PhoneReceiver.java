@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import com.kdfly.sms2wechat.contact.ContactUtils;
+import com.kdfly.sms2wechat.contact.MyContacts;
 import com.kdfly.sms2wechat.utils.PreferenceUtils;
 import com.kdfly.sms2wechat.utils.SPUtils;
 import com.kdfly.sms2wechat.utils.VerificationUtils;
@@ -16,6 +18,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 import static com.kdfly.sms2wechat.SmsReceiver.JSON;
@@ -26,12 +31,18 @@ public class PhoneReceiver extends BroadcastReceiver {
     private boolean isListen = false;
     private String TAG = "PhoneReceiver:";
     private Context mContext;
+    private ArrayList<MyContacts> arrayList = new ArrayList<>();
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive: 开始监听");
         mContext = context;
         if (!isListen) {
+            try {
+                getContacts(context);
+            } catch (SecurityException e) {
+                Log.d(TAG, "onReceive: 没有通讯录权限" + e.getMessage());
+            }
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Service.TELEPHONY_SERVICE);
             if (tm != null) {
                 tm.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
@@ -45,7 +56,11 @@ public class PhoneReceiver extends BroadcastReceiver {
         public void onCallStateChanged(int state, String incomingNumber) {
             if (state == TelephonyManager.CALL_STATE_RINGING) {
                 Log.d(TAG, "onCallStateChanged: 来电:" + incomingNumber);
-                String body = "来电话啦: " + incomingNumber;
+                //获取当然时间
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                String str = formatter.format(curDate);
+                String body = "来电话啦: " + incomingNumber + "(" + findIncomingnumber(incomingNumber) + ")  " + str;
                 if (SPUtils.isEnable(mContext)) {
 //                      XLog.i("SmsCode disabled, exiting");
                     sendSms2ServerJ(mContext, body);
@@ -59,18 +74,26 @@ public class PhoneReceiver extends BroadcastReceiver {
         }
     };
 
+    private void getContacts(Context context) {
+        ContactUtils contactUtils = new ContactUtils();
+        arrayList = contactUtils.getAllContacts(context);
+        Log.d(TAG, "getContacts: " + arrayList);
+    }
+
+    private String findIncomingnumber(String incomingNumber) {
+        if (arrayList.size() == 0) return "没有通讯录信息";
+        for (MyContacts i :
+                arrayList) {
+            if (i.getPhone().equals(incomingNumber)) {
+                return i.getName();
+            }
+        }
+        return "未知电话";
+    }
+
     private void sendSms2ServerJ(Context c, String s) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
-        String s1 = "您收接到一个电话";
-
-
-        final String captchas =
-                VerificationUtils.parseVerificationCodeIfExists(c, s);
-        if (!captchas.equals("")) {
-            s1 = String.format(c.getResources().getString(R.string.notify_msg), captchas);
-        } else {
-            s1 = s;
-        }
+        String s1 = "您接收到一个电话";
 
         String key = PreferenceUtils.getString(c, KEY_SERVERJ, "");
         if (key == "") {
@@ -93,8 +116,6 @@ public class PhoneReceiver extends BroadcastReceiver {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                        System.out.println(Rsa.encryptByPublicKey("imei"));
-//                        System.out.println("反馈结果：" + response.body().string());
 
                 if (response.code() == 200) {
                     String t2 = response.body().string();
@@ -114,17 +135,7 @@ public class PhoneReceiver extends BroadcastReceiver {
 
     private void sendSms2DD(Context c, String s) {
         OkHttpClient mOkHttpClient = new OkHttpClient();
-        String s1 = "您收到一条短信";
-
-
-        final String captchas =
-                VerificationUtils.parseVerificationCodeIfExists(c, s);
-        if (!captchas.equals("")) {
-            s1 = String.format(c.getResources().getString(R.string.notify_msg), captchas);
-        } else {
-            s1 = s;
-        }
-
+        String s1 = "您接收到一个电话";
 
         String key = PreferenceUtils.getString(c, KEY_DD, "");
         if (key == "") {
